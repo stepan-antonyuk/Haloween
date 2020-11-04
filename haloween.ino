@@ -1,9 +1,10 @@
 #include <Servo.h>
-double n = 45;
-double x = 5;
-double m = -1;
-Servo servo1;
- #define inputCLK1 9
+double n = 45; //starter posotion
+double x = 5; //on whitch angle will servo increase or deacreas anlge in one step
+double m = -1; // -1 False, 1 true. This is used to lounch an mechanism that will control the robo ear 
+Servo servo1; // creat object servo
+ //define the pins
+ #define inputCLK1 9 
  #define inputDT1 10
  int B = 8;
  int BS = 0;
@@ -16,7 +17,7 @@ void setup()
   pinMode (inputCLK1,INPUT);
   pinMode (inputDT1,INPUT);
   pinMode (B,INPUT);
-  servo1.attach(11);
+  servo1.attach(11); // attach the servo to pin 11
 
   previousStateCLK1 = digitalRead(inputCLK1);
 //  previousStateCLK1 = n;
@@ -25,8 +26,8 @@ void setup()
  
 void loop()
 {
-  BS = digitalRead(B);
-  currentStateCLK1 = digitalRead(inputCLK1);
+  BS = digitalRead(B); // read the button
+  currentStateCLK1 = digitalRead(inputCLK1); //chech the encoder positions
   if (BS == LOW) {
     m *= -1;
     delay(500);  
@@ -49,6 +50,7 @@ void loop()
      servo1.write(n);
      previousStateCLK1 = currentStateCLK1;
   }
+ // this is mechanism that control robo ear without you
   if(m == 1){
       n = 45;
       n += 45;
@@ -63,7 +65,7 @@ void loop()
 
    }
 }
-
+// sad ear movement
 void sad(Servo servo1,double n){
   servo1.write(n);
   delay(1000);
